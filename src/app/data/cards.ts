@@ -1,17 +1,3 @@
-// 动态导入所有图片
-const images = import.meta.glob<{ default: string }>('../../assets/*.png', { eager: true });
-const tarotImages = Object.values(images).map(img => img.default);
-
-export interface CardData {
-  id: number;
-  name: string;
-  emoji: string;
-  past: string;
-  present: string;
-  future: string;
-  imageUrl: string;
-}
-
 // 定义每张图片对应的卡片主题
 const cardThemes = [
   { name: "太阳", emoji: "☀️", past: "过去的努力已经播下希望的种子", present: "当下充满积极的能量和光明", future: "未来会迎来成功和繁荣" },
@@ -33,11 +19,22 @@ const cardThemes = [
   { name: "天使", emoji: "😇", past: "守护的力量一直存在", present: "神圣的指引正在发生", future: "将受到庇佑和保护" },
 ];
 
+export interface CardData {
+  id: number;
+  name: string;
+  emoji: string;
+  past: string;
+  present: string;
+  future: string;
+  imageUrl: string;
+  _isLoading?: boolean; // 标记图片是否正在加载
+}
+
 // 塔罗牌图片池（17张图片循环使用）
 export const dreamCards: CardData[] = [
   ...cardThemes.map((theme, index) => ({
     id: index + 1,
     ...theme,
-    imageUrl: tarotImages[index % tarotImages.length]
+    imageUrl: `/assets/${(index % 17) + 1}.png`
   }))
 ];
