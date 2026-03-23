@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { CardData } from '../data/cards';
 import { TarotCard } from './TarotCard';
@@ -40,32 +40,32 @@ export function CardCarousel({ cards, onCardSelect, isDrawing }: CardCarouselPro
     }
   }, [isDrawing, cards, onCardSelect]);
 
-  // 获取可见的卡牌（当前卡牌和前后各2张）
-  const getVisibleCards = () => {
+  // 使用 useMemo 缓存可见卡牌
+  const visibleCards = useMemo(() => {
     const visible = [];
     for (let i = -2; i <= 2; i++) {
       const index = (currentIndex + i + cards.length) % cards.length;
       visible.push({ card: cards[index], offset: i });
     }
     return visible;
-  };
+  }, [currentIndex, cards]);
 
   return (
     <div className="relative h-80 flex items-center justify-center overflow-hidden py-4">
-      {getVisibleCards().map(({ card, offset }) => (
+      {visibleCards.map(({ card, offset }) => (
         <motion.div
           key={`${card.id}-${currentIndex}-${offset}`}
           className="absolute"
           initial={false}
           animate={{
-            x: offset * 150,
-            scale: offset === 0 ? 1 : 0.7,
-            opacity: offset === 0 ? 1 : Math.max(0.3, 1 - Math.abs(offset) * 0.3),
+            x: offset * 120,
+            scale: offset === 0 ? 1 : 0.65,
+            opacity: offset === 0 ? 1 : Math.max(0.25, 1 - Math.abs(offset) * 0.3),
             zIndex: offset === 0 ? 20 : 10 - Math.abs(offset),
-            rotateY: offset * 20,
+            rotateY: offset * 15,
           }}
-          transition={{ 
-            duration: 0.2,
+          transition={{
+            duration: 0.15,
             ease: "easeOut"
           }}
         >

@@ -1,9 +1,9 @@
-export default {
+module.exports = {
   apps: [
     {
       name: 'card-app',
-      script: 'vite',
-      args: 'preview',
+      script: 'npx',
+      args: 'vite preview --host',
       instances: 'max',
       exec_mode: 'cluster',
       autorestart: true,
