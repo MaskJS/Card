@@ -17,11 +17,11 @@ export function CardCarousel({ cards, onCardSelect, isDrawing }: CardCarouselPro
       // 自动循环滚动
       const interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % cards.length);
-      }, 100);
+      }, 800);
       return () => clearInterval(interval);
     } else {
       // 抽卡时加速滚动
-      let speed = 50;
+      let speed = 100;
       const speedUpInterval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % cards.length);
       }, speed);

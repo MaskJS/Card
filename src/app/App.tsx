@@ -86,7 +86,7 @@ export default function App() {
           transition={{ delay: 0.5 }}
           className="text-center mt-8 text-purple-300 text-sm"
         >
-          共 {dreamCards.length} 张神秘卡牌 · 每张都蕴含独特的启示
+          {/* 共 {dreamCards.length} 张神秘卡牌 · 每张都蕴含独特的启示 */}
         </motion.div>
       </div>
     </div>
